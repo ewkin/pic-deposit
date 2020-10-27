@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Picture
 from django.utils import timezone
 
@@ -24,18 +25,18 @@ class PictureDetail(DetailView):
     context_object_name = "pic"
 
 
-class PictureCreate(CreateView):
+class PictureCreate(LoginRequiredMixin,CreateView):
     model = Picture
     fields = ['title', 'picture', 'description']
     success_url = reverse_lazy('picture_list')
 
 
-class PictureUpdate(UpdateView):
+class PictureUpdate(LoginRequiredMixin, UpdateView):
     model = Picture
     fields = ['title', 'picture', 'description']
     success_url = reverse_lazy('picture_list')
 
 
-class PictureDelete(DeleteView):
+class PictureDelete(LoginRequiredMixin,DeleteView):
     model = Picture
     success_url = reverse_lazy('picture_list')
