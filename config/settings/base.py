@@ -72,7 +72,7 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
-    # 'imagekit',
+    'imagekit',
 ]
 
 LOCAL_APPS = [

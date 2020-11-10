@@ -25,7 +25,7 @@ class PictureDetail(DetailView):
     context_object_name = "pic"
 
 
-class PictureCreate(LoginRequiredMixin,CreateView):
+class PictureCreate(LoginRequiredMixin, CreateView):
     model = Picture
     fields = ['title', 'picture', 'description']
     success_url = reverse_lazy('picture_list')
@@ -37,6 +37,16 @@ class PictureUpdate(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('picture_list')
 
 
-class PictureDelete(LoginRequiredMixin,DeleteView):
+class PictureDelete(LoginRequiredMixin, DeleteView):
     model = Picture
     success_url = reverse_lazy('picture_list')
+
+
+class PictureOwnerList(LoginRequiredMixin, ListView):
+    model = Picture
+    template_name = 'pictures/my_picture_list.html'
+    context_object_name = 'pics_list'
+
+    def get_queryset(self):
+        return Picture.objects.filter(user=self.request.user)
+#
